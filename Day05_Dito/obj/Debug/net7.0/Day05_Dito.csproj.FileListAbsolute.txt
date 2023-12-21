@@ -1,0 +1,14 @@
+C:\Users\Batch 8\Desktop\Batch8_Dito\git_repo\bootcamp_fmlx_dito\Day05_Dito\bin\Debug\net7.0\Day05_Dito.exe
+C:\Users\Batch 8\Desktop\Batch8_Dito\git_repo\bootcamp_fmlx_dito\Day05_Dito\bin\Debug\net7.0\Day05_Dito.deps.json
+C:\Users\Batch 8\Desktop\Batch8_Dito\git_repo\bootcamp_fmlx_dito\Day05_Dito\bin\Debug\net7.0\Day05_Dito.runtimeconfig.json
+C:\Users\Batch 8\Desktop\Batch8_Dito\git_repo\bootcamp_fmlx_dito\Day05_Dito\bin\Debug\net7.0\Day05_Dito.dll
+C:\Users\Batch 8\Desktop\Batch8_Dito\git_repo\bootcamp_fmlx_dito\Day05_Dito\bin\Debug\net7.0\Day05_Dito.pdb
+C:\Users\Batch 8\Desktop\Batch8_Dito\git_repo\bootcamp_fmlx_dito\Day05_Dito\obj\Debug\net7.0\Day05_Dito.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Batch 8\Desktop\Batch8_Dito\git_repo\bootcamp_fmlx_dito\Day05_Dito\obj\Debug\net7.0\Day05_Dito.AssemblyInfoInputs.cache
+C:\Users\Batch 8\Desktop\Batch8_Dito\git_repo\bootcamp_fmlx_dito\Day05_Dito\obj\Debug\net7.0\Day05_Dito.AssemblyInfo.cs
+C:\Users\Batch 8\Desktop\Batch8_Dito\git_repo\bootcamp_fmlx_dito\Day05_Dito\obj\Debug\net7.0\Day05_Dito.csproj.CoreCompileInputs.cache
+C:\Users\Batch 8\Desktop\Batch8_Dito\git_repo\bootcamp_fmlx_dito\Day05_Dito\obj\Debug\net7.0\Day05_Dito.dll
+C:\Users\Batch 8\Desktop\Batch8_Dito\git_repo\bootcamp_fmlx_dito\Day05_Dito\obj\Debug\net7.0\refint\Day05_Dito.dll
+C:\Users\Batch 8\Desktop\Batch8_Dito\git_repo\bootcamp_fmlx_dito\Day05_Dito\obj\Debug\net7.0\Day05_Dito.pdb
+C:\Users\Batch 8\Desktop\Batch8_Dito\git_repo\bootcamp_fmlx_dito\Day05_Dito\obj\Debug\net7.0\Day05_Dito.genruntimeconfig.cache
+C:\Users\Batch 8\Desktop\Batch8_Dito\git_repo\bootcamp_fmlx_dito\Day05_Dito\obj\Debug\net7.0\ref\Day05_Dito.dll

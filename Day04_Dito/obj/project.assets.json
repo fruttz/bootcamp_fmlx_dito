@@ -14,11 +14,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Batch 8\\Desktop\\Batch8_Dito\\git_repo\\bootcamp_fmlx_dito\\Day03_Dito\\Day03_Dito.csproj",
-      "projectName": "Day03_Dito",
-      "projectPath": "C:\\Users\\Batch 8\\Desktop\\Batch8_Dito\\git_repo\\bootcamp_fmlx_dito\\Day03_Dito\\Day03_Dito.csproj",
+      "projectUniqueName": "C:\\Users\\Batch 8\\Desktop\\Batch8_Dito\\git_repo\\bootcamp_fmlx_dito\\Day04_Dito\\Day04_Dito.csproj",
+      "projectName": "Day04_Dito",
+      "projectPath": "C:\\Users\\Batch 8\\Desktop\\Batch8_Dito\\git_repo\\bootcamp_fmlx_dito\\Day04_Dito\\Day04_Dito.csproj",
       "packagesPath": "C:\\Users\\Batch 8\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Batch 8\\Desktop\\Batch8_Dito\\git_repo\\bootcamp_fmlx_dito\\Day03_Dito\\obj\\",
+      "outputPath": "C:\\Users\\Batch 8\\Desktop\\Batch8_Dito\\git_repo\\bootcamp_fmlx_dito\\Day04_Dito\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"

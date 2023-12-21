@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Batch 8\\Desktop\\Batch8_Dito\\git_repo\\bootcamp_fmlx_dito\\Day03_Dito\\Day03_Dito.csproj": {}
+    "C:\\Users\\Batch 8\\Desktop\\Batch8_Dito\\git_repo\\bootcamp_fmlx_dito\\Day05_Dito\\Day05_Dito.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Batch 8\\Desktop\\Batch8_Dito\\git_repo\\bootcamp_fmlx_dito\\Day03_Dito\\Day03_Dito.csproj": {
+    "C:\\Users\\Batch 8\\Desktop\\Batch8_Dito\\git_repo\\bootcamp_fmlx_dito\\Day05_Dito\\Day05_Dito.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Batch 8\\Desktop\\Batch8_Dito\\git_repo\\bootcamp_fmlx_dito\\Day03_Dito\\Day03_Dito.csproj",
-        "projectName": "Day03_Dito",
-        "projectPath": "C:\\Users\\Batch 8\\Desktop\\Batch8_Dito\\git_repo\\bootcamp_fmlx_dito\\Day03_Dito\\Day03_Dito.csproj",
+        "projectUniqueName": "C:\\Users\\Batch 8\\Desktop\\Batch8_Dito\\git_repo\\bootcamp_fmlx_dito\\Day05_Dito\\Day05_Dito.csproj",
+        "projectName": "Day05_Dito",
+        "projectPath": "C:\\Users\\Batch 8\\Desktop\\Batch8_Dito\\git_repo\\bootcamp_fmlx_dito\\Day05_Dito\\Day05_Dito.csproj",
         "packagesPath": "C:\\Users\\Batch 8\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Batch 8\\Desktop\\Batch8_Dito\\git_repo\\bootcamp_fmlx_dito\\Day03_Dito\\obj\\",
+        "outputPath": "C:\\Users\\Batch 8\\Desktop\\Batch8_Dito\\git_repo\\bootcamp_fmlx_dito\\Day05_Dito\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
