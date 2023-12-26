@@ -3,10 +3,13 @@
 	public static void Main(string[] args)
 	{
 		Car car = new Car();
+		Console.WriteLine(Car.Counter());
 		Car car1= new Car();
+		Console.WriteLine(Car.Counter());
 		Car car2= new Car();
+		Console.WriteLine(Car.Counter());
 		
-		Console.WriteLine(Car.count);
+		
 	}
 
 	
@@ -85,7 +88,12 @@ class Car
 	public static int count = 0;
 	public Car()
 	{
-		Console.WriteLine("Vroom");
 		count++;
+	}
+	
+	public static int Counter()
+	{
+		Console.WriteLine("Vroom");
+		return count;
 	}
 }
