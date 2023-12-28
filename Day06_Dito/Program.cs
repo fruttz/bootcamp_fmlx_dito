@@ -22,9 +22,6 @@ class Program
 		result2.Print();
 		
 		
-			
-		
-		
 	}
 	
 	static int Add(int x, int y)

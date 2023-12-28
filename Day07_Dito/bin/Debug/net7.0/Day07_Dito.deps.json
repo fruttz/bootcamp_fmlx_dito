@@ -1,0 +1,23 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v7.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v7.0": {
+      "Day07_Dito/1.0.0": {
+        "runtime": {
+          "Day07_Dito.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "Day07_Dito/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}
