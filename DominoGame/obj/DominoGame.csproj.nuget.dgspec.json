@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\git\\bootcamp_fmlx_dito\\Day08_Dito\\Day08_Dito.csproj": {}
+    "D:\\git\\bootcamp_fmlx_dito\\DominoGame\\DominoGame.csproj": {}
   },
   "projects": {
-    "D:\\git\\bootcamp_fmlx_dito\\Day08_Dito\\Day08_Dito.csproj": {
+    "D:\\git\\bootcamp_fmlx_dito\\DominoGame\\DominoGame.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\git\\bootcamp_fmlx_dito\\Day08_Dito\\Day08_Dito.csproj",
-        "projectName": "Day08_Dito",
-        "projectPath": "D:\\git\\bootcamp_fmlx_dito\\Day08_Dito\\Day08_Dito.csproj",
+        "projectUniqueName": "D:\\git\\bootcamp_fmlx_dito\\DominoGame\\DominoGame.csproj",
+        "projectName": "DominoGame",
+        "projectPath": "D:\\git\\bootcamp_fmlx_dito\\DominoGame\\DominoGame.csproj",
         "packagesPath": "C:\\Users\\ACER\\.nuget\\packages\\",
-        "outputPath": "D:\\git\\bootcamp_fmlx_dito\\Day08_Dito\\obj\\",
+        "outputPath": "D:\\git\\bootcamp_fmlx_dito\\DominoGame\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\ACER\\AppData\\Roaming\\NuGet\\NuGet.Config",

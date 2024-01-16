@@ -1,13 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "ijV6Yt3WSQ7tPj97ZoNEfwp0NzpJE2UFIT+ZadlswtjWU74XPff4+E9AEIpbJkFcKmLqOVo00x34kBezErm0og==",
+  "dgSpecHash": "0irW9H9uGJ2H/NOkhCbpU1fmfxvMjiwnscxecK/+kEIBLhG8nAbxjaVaDz3zfSDt5M4yMs3uUZzfUrHfWHi3Ew==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Batch 8\\Desktop\\Batch8_Dito\\git_repo\\bootcamp_fmlx_dito\\Day08_Dito\\Day08_Dito.csproj",
-  "expectedPackageFiles": [
-    "C:\\Users\\Batch 8\\.nuget\\packages\\microsoft.netcore.app.ref\\7.0.13\\microsoft.netcore.app.ref.7.0.13.nupkg.sha512",
-    "C:\\Users\\Batch 8\\.nuget\\packages\\microsoft.windowsdesktop.app.ref\\7.0.13\\microsoft.windowsdesktop.app.ref.7.0.13.nupkg.sha512",
-    "C:\\Users\\Batch 8\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\7.0.13\\microsoft.aspnetcore.app.ref.7.0.13.nupkg.sha512",
-    "C:\\Users\\Batch 8\\.nuget\\packages\\microsoft.netcore.app.host.win-x64\\7.0.13\\microsoft.netcore.app.host.win-x64.7.0.13.nupkg.sha512"
-  ],
+  "projectFilePath": "D:\\git\\bootcamp_fmlx_dito\\Day08_Dito\\Day08_Dito.csproj",
+  "expectedPackageFiles": [],
   "logs": []
 }
