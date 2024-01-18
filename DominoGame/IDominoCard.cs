@@ -6,5 +6,5 @@ public interface IDominoCard
     public int End2 {get; set;}
     public int CardValue();
     public bool IsDouble();
-     
+    public override string ToString();
 }
