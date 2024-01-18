@@ -1,8 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "K7uUegKBsMfybd5mL/6bgiLhoMuUq/nzW8N0ITOegQdVZQiray6Mn/21/oHx4cuWQRRP0io83kW8nKOPj86bfw==",
+  "dgSpecHash": "y5xqufRyuq66MTMGcPGiU2fQ69Qf6nwLDYbD+gVQXZxUNOaU4LB8lxffNaPIq0g6yFrNHBCVED1brYYI9LMOfg==",
   "success": true,
   "projectFilePath": "D:\\git\\bootcamp_fmlx_dito\\DominoGame\\DominoGame.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "C:\\Users\\ACER\\.nuget\\packages\\spectre.console\\0.48.0\\spectre.console.0.48.0.nupkg.sha512",
+    "C:\\Users\\ACER\\.nuget\\packages\\spectre.console.cli\\0.48.0\\spectre.console.cli.0.48.0.nupkg.sha512",
+    "C:\\Users\\ACER\\.nuget\\packages\\system.memory\\4.5.5\\system.memory.4.5.5.nupkg.sha512"
+  ],
   "logs": []
 }

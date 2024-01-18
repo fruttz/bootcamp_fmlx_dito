@@ -22,7 +22,7 @@ public class Game
 		}
 	}
 	
-	public IEnumerable<IDominoCard> GetPlayerCard(IPlayer player){
+	public IEnumerable<IDominoCard>? GetPlayerCard(IPlayer player){
 		return _players[player].PlayerDeck;
 	}
 	
@@ -45,9 +45,18 @@ public class Game
 	public IEnumerable<IDominoCard> GetBoardDeck() {
 		return _boards.BoardDeck;
 	}
+
+	public IPlayer? GetPlayer(int id){
+		foreach(IPlayer player in _players.Keys){
+			if (player.Id == id){
+				return player;
+			}
+		}
+		return null;
+	}
 	
 	public IPlayer GetPlayerPlayed() {
-		return _players[indexTurnPlayer];
+		return GetPlayer(indexTurnPlayer);
 	}
 
 	public IEnumerable<bool> GetChainStatus() {
@@ -57,6 +66,7 @@ public class Game
 
 	public bool CreatePlayer(IPlayer player) {
 		_players.Add(player, new PlayerData());
+		return true;
 	}
 
 	public bool IsReadyToPlay() {
@@ -113,7 +123,7 @@ public class Game
 	}
 	
 	public IDominoCard FirstCard(IPlayer player) {
-		//cari greatest double dari player
+		return _players[player].FindGreatestDouble();
 	}
 	
 	public bool StillHaveCard(IPlayer player) {
@@ -163,38 +173,42 @@ public class Game
 		return _gameStatus;
 	}
 	
-	public IPlayer RoundWinner() {
-		foreach (IPlayer player in _players) {
+	public IPlayer? RoundWinner() {
+		foreach (IPlayer player in _players.Keys) {
 			if (_players[player].PlayerDeck == null) {
 				return player;
 			}
 		}
+		return null;
 		
 	}
 	
 	public bool PlayerReachMaxPoint() {
-		foreach(IPlayer player in _players) {
-			if _players[player].Point >= maxPoint {
+		foreach(IPlayer player in _players.Keys) {
+			if (_players[player].Point >= maxPoint) {
 				return true;
 			}
 		}
 		return false;
 	}
 	
-	public IPlayer GameWinner() {
+	public IPlayer? GameWinner() {
 		if (PlayerReachMaxPoint())
 		{
-			foreach (IPlayer player in _players) {
-				if _players[player].Point >= maxPoint {
+			foreach (IPlayer player in _players.Keys) {
+				if (_players[player].Point >= maxPoint) {
 					return player;
 				}
 			}
-			return null;
 		}
+		return null;
 	}
 	
 	public bool ResetPoint() {
 		//reset point setiap player
+		foreach(IPlayer player in _players.Keys){
+			_players[player].Point = 0;
+		}
 	}
 	
 	public bool ResetPlayerCard() {
@@ -206,6 +220,7 @@ public class Game
 	
 	public bool ResetBoard(IDominoBoard board) {
 		_boards = board;
+		return true;
 	}
 	
 	
