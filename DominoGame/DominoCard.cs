@@ -4,12 +4,12 @@ public class DominoCard : IDominoCard
 {
 	public int End1 {get; set;}
 	public int End2 {get; set;}
-	public CardStatus status;
+	public string status {get; set;}
 
-	public DominoCard(int end1, int end2){
+	public DominoCard(int end1, int end2, string status){
 		this.End1 = end1;
 		this.End2 = end2;
-		this.status = CardStatus.MainDeck;
+		this.status = status;
 	}
 
 	public int CardValue(){

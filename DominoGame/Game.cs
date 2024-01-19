@@ -16,7 +16,8 @@ public class Game
 		this._boards = board;
 		this.maxPoint = maxPoint;
 		this.numberDistributeCards = numberOfDistributeCard;
-		foreach(IPlayer player in _players.Keys) {
+		this._players = new Dictionary<IPlayer, PlayerData>();
+		foreach(IPlayer player in players) {
 			CreatePlayer(player);
 		}
 	}
@@ -36,6 +37,16 @@ public class Game
 	public IEnumerable<IPlayer> GetPlayers() {
 		return _players.Keys;
 	}
+
+	public void InitializeMainDeck(){
+		//List<IDominoCard> deck = new List<IDominoCard>();
+		for (int i = 0; i <= 6; i++){
+			for(int j = i; j <= 6; j++){
+				IDominoCard card = new DominoCard(i, j, CardStatus.MainDeck.ToString());
+				_boards.MainDeck.Add(card);
+			}
+		}
+	}
 	
 	public IEnumerable<IDominoCard> GetMainDeck() {
 		return _boards.MainDeck;
@@ -43,6 +54,31 @@ public class Game
 	
 	public IEnumerable<IDominoCard> GetBoardDeck() {
 		return _boards.BoardDeck;
+	}
+
+	public void PrintBoardDeck(){
+		if(_boards.BoardDeck != null){
+			foreach(IDominoCard card in _boards.BoardDeck){
+				Console.WriteLine(card.ToString());
+			}
+		}
+	}
+
+	public void PrintPlayerHand(IPlayer player){
+		if(_players[player].PlayerDeck != null){
+			foreach(IDominoCard card in _players[player].PlayerDeck){
+				Console.WriteLine(card.ToString());
+			}
+		}
+	}
+
+	public void PrintMainDeck(){
+		if (_boards.MainDeck != null){
+			foreach(IDominoCard card in _boards.MainDeck){
+				Console.WriteLine(card.ToString());
+			}
+		}
+		
 	}
 
 	public IPlayer? GetPlayer(int id){
@@ -85,7 +121,7 @@ public class Game
 		}
 	}
 	
-	public int RandomizeFromListRange(IEnumerable list) {
+	public int RandomizeFromListRange(List<IDominoCard> list) {
 		int number;
 		Random rng = new Random();
 		number = rng.Next(0, list.Count());
@@ -93,8 +129,8 @@ public class Game
 		
 	}
 	
-	public void SetCardStatus(IDominoCard card, CardStatus status) {
-		card.status = status;
+	public void SetCardStatus(IDominoCard card, CardStatus cardStatus) {
+		card.status = cardStatus.ToString();
 	}
 	
 	public IDominoCard? GetCardFromMainDeck(int id) {
@@ -113,8 +149,8 @@ public class Game
 		if (CanDrawCard(player)) {
 			IDominoCard card = GetCardFromMainDeck(RandomizeFromListRange(_boards.MainDeck));
 			_players[player].PlayerDeck.Add(card);
-			ChangeCardStatus = SetCardStatus;
-			ChangeCardStatus(card, CardStatus.PlayerHand);
+			//ChangeCardStatus = SetCardStatus;
+			//ChangeCardStatus(card, CardStatus.PlayerHand);
 			return card;	
 		}
 		return null;
@@ -182,7 +218,7 @@ public class Game
 		//cek ujung board deck
 		//intine cek kalo kartune bisa dichain
 		IDominoCard first = _boards.BoardDeck.First();
-		IDominoCard last = _board.BoardDeck.Last();
+		IDominoCard last = _boards.BoardDeck.Last();
 		if (card.End1 == first.End1 || card.End2 == first.End2 || card.End1 == last.End1 || card.End2 == last.End2) {
 			return true;
 		}
@@ -194,7 +230,7 @@ public class Game
 	public bool PlayerPutCard(IPlayer player, IDominoCard card) {
 		// Naruh kartu ke board deck
 		IDominoCard first = _boards.BoardDeck.First();
-		IDominoCard last = _board.BoardDeck.Last();
+		IDominoCard last = _boards.BoardDeck.Last();
 		if (CanChainCard(card) && (card.End1 == first.End1 || card.End2 == first.End2)) {
 			if (card.End1 != first.End1) {
 				card.FlipCard();
@@ -232,6 +268,7 @@ public class Game
 	}
 	
 	public void NextTurn() {
+		_players[GetPlayerPlayed()].AlreadyPutCardThatTurn = false;
 		indexTurnPlayer = (indexTurnPlayer + 1) % _players.Keys.Count(); 
 	}
 	
@@ -284,6 +321,19 @@ public class Game
 		//ngosongin player deck, inisialisasi ulang maindeck
 		//dipanggil waktu distribute card gaada double
 		//dipanggil waktu menang round
+
+		foreach(IPlayer player in _players.Keys) {
+			if(_players[player].PlayerDeck != null) {
+				_players[player].PlayerDeck = null;
+			}
+			else{
+				return false;
+			}
+		}
+
+		InitializeMainDeck();
+		return true;
+
 		
 	}
 	
