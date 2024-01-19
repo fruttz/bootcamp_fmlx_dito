@@ -20,6 +20,10 @@ public class DominoCard : IDominoCard
 		return End1 == End2;
 	}
 	
+	public void FlipCard() {
+		(End1,End2) = (End2,End1);
+	}
+	
 	public override string ToString()
 	
 	{

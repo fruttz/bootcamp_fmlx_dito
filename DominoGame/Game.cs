@@ -10,14 +10,13 @@ public class Game
 	private int indexTurnPlayer;
 	private int maxPoint;
 	private int numberDistributeCards;
-	public Action<IDominoCard, CardStatus> CardStatus;
+	public Action<IDominoCard, CardStatus> ChangeCardStatus;
 
 	public Game(IDominoBoard board, List<IPlayer> players,  int maxPoint, int numberOfDistributeCard){
 		this._boards = board;
 		this.maxPoint = maxPoint;
 		this.numberDistributeCards = numberOfDistributeCard;
-		foreach(IPlayer player in players)
-		{
+		foreach(IPlayer player in _players.Keys) {
 			CreatePlayer(player);
 		}
 	}
@@ -77,12 +76,48 @@ public class Game
 		//cek main deck
 		//cek playerdata.alreadyputcard
 		//misal gaisa naruh kartu, bisa minum nek blm naruh kartu
+		
+		if (_boards.MainDeck != null && !_players[player].AlreadyPutCardThatTurn) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+	
+	public int RandomizeFromListRange(IEnumerable list) {
+		int number;
+		Random rng = new Random();
+		number = rng.Next(0, list.Count());
+		return number;
+		
+	}
+	
+	public void SetCardStatus(IDominoCard card, CardStatus status) {
+		card.status = status;
+	}
+	
+	public IDominoCard? GetCardFromMainDeck(int id) {
+		if (_boards.MainDeck != null && _boards.MainDeck.ElementAtOrDefault(id) != null) {
+			IDominoCard card = _boards.MainDeck[id];
+			_boards.MainDeck.RemoveAt(id);
+			return card;	
+		}
+		return null;
+		
+		
 	}
 
-	public IDominoCard DrawCard(IPlayer player) {
+	public IDominoCard? DrawCard(IPlayer player) {
 		// Bisa ngambil random kartu dari main deck
-		_players[player].PlayerDeck.Add();
-		return 
+		if (CanDrawCard(player)) {
+			IDominoCard card = GetCardFromMainDeck(RandomizeFromListRange(_boards.MainDeck));
+			_players[player].PlayerDeck.Add(card);
+			ChangeCardStatus = SetCardStatus;
+			ChangeCardStatus(card, CardStatus.PlayerHand);
+			return card;	
+		}
+		return null;
 	}
 
 	public bool DistributeCards() {
@@ -130,22 +165,53 @@ public class Game
 		return _players[player].PlayerDeck != null;
 	}
 	
+	
 	public bool StillCanPlay(IPlayer player) {
 		//ngecek playerdeck kalo ada kartu yang bisa dimainin
 		//kalo gaada yang bisa dimainin, cek bisa draw apa engga
 		//kalo masih gabisa, return false.
+		foreach(IDominoCard card in _players[player].PlayerDeck) {
+			if (CanChainCard(card)) {
+				return true;
+			}
+		}
+		return false; 
 	}
 	
 	public bool CanChainCard(IDominoCard card) {
 		//cek ujung board deck
 		//intine cek kalo kartune bisa dichain
+		IDominoCard first = _boards.BoardDeck.First();
+		IDominoCard last = _board.BoardDeck.Last();
+		if (card.End1 == first.End1 || card.End2 == first.End2 || card.End1 == last.End1 || card.End2 == last.End2) {
+			return true;
+		}
+		else {
+			return false;
+		}
 	}
 	
 	public bool PlayerPutCard(IPlayer player, IDominoCard card) {
-		// Naruh kartu ke board deck 
+		// Naruh kartu ke board deck
+		IDominoCard first = _boards.BoardDeck.First();
+		IDominoCard last = _board.BoardDeck.Last();
+		if (CanChainCard(card) && (card.End1 == first.End1 || card.End2 == first.End2)) {
+			if (card.End1 != first.End1) {
+				card.FlipCard();
+			}
+			_boards.BoardDeck.AddFirst(card);	
+		}
+		else if (CanChainCard(card) && (card.End1 == last.End1 || card.End2 == last.End2)) {
+			if (card.End1 != last.End1) {
+				card.FlipCard();
+			}
+			_boards.BoardDeck.AddLast(card);
+		}
 		_players[player].PlayerDeck.Remove(card);
 		_players[player].AlreadyPutCardThatTurn = true;
-		card.status = CardStatus.BoardDeck;
+		ChangeCardStatus = SetCardStatus;
+		ChangeCardStatus(card, CardStatus.BoardDeck);
+		return true;
 	}
 	
 	public bool AllPlayerCannotChain() {
@@ -193,8 +259,7 @@ public class Game
 	}
 	
 	public IPlayer? GameWinner() {
-		if (PlayerReachMaxPoint())
-		{
+		if (PlayerReachMaxPoint()) {
 			foreach (IPlayer player in _players.Keys) {
 				if (_players[player].Point >= maxPoint) {
 					return player;
@@ -206,9 +271,13 @@ public class Game
 	
 	public bool ResetPoint() {
 		//reset point setiap player
-		foreach(IPlayer player in _players.Keys){
-			_players[player].Point = 0;
+		if (_players != null){
+			foreach(IPlayer player in _players.Keys){
+				_players[player].Point = 0;
+			}
+			return true;
 		}
+		return false;
 	}
 	
 	public bool ResetPlayerCard() {
