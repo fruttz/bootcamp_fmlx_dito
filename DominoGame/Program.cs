@@ -24,14 +24,56 @@ public class Program{
 
         Game game = new Game(board, players, maxPoint, 7);
 
-        game.InitializeMainDeck();
-
         //GAME START
 
-        //game.PrintMainDeck();
+        if(game.IsReadyToPlay()){
+            Console.WriteLine("===== GAME START =====");
+            game.InitializeMainDeck();
+            game.DistributeCards();
 
-        game.DistributeCards();
-        game.PrintPlayerHand(player1);
+            IPlayer currentPlayer = game.GetPlayerPlayed();
+
+            while(game.FirstCard(currentPlayer) is null){
+                game.ResetPlayerCard();
+                game.DistributeCards();
+            }
+
+            while(game.CalculatePoint(currentPlayer) < 100){
+                Console.WriteLine("==============================");
+                Console.WriteLine($"{currentPlayer.Name}'s Turn");
+                Console.WriteLine("==============================");
+                Console.WriteLine();
+
+                Console.WriteLine("BOARD:");
+                game.PrintBoardDeck();
+                Console.WriteLine();
+                Console.WriteLine("==============================");
+                Console.WriteLine();
+
+                Console.WriteLine("YOUR HAND: ");
+                game.PrintPlayerHand(currentPlayer);
+                Console.WriteLine();
+                Console.WriteLine("==============================");
+                Console.WriteLine();
+                Console.WriteLine("Playable Cards:");
+                game.PrintPlayableCards(currentPlayer);
+
+
+                Console.Write("Choose which cards to play: ");
+                int choice;
+                while(!int.TryParse(Console.ReadLine(), out choice) || (choice - 1) > game.PlayableCards(currentPlayer).Count){
+                    Console.WriteLine("Try Again");
+                }
+
+                Console.WriteLine("==============================");
+                game.PlayerPutCard(currentPlayer, game.ChoosePlayableCard(currentPlayer, choice));
+
+                currentPlayer = game.NextTurn();
+            }
+            
+
+        }
+        
 
 
 

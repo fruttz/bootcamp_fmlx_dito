@@ -20,6 +20,7 @@ public class Game
 		foreach(IPlayer player in players) {
 			CreatePlayer(player);
 		}
+		this.indexTurnPlayer = WhoHasGreatestDouble().Id;
 	}
 	
 	public IEnumerable<IDominoCard>? GetPlayerCard(IPlayer player){
@@ -56,26 +57,46 @@ public class Game
 		return _boards.BoardDeck;
 	}
 
+	public bool IsEmptyBoard(){
+		return _boards.BoardDeck.Count == 0;
+	}
+
+	public bool IsEmptyMain(){
+		return _boards.MainDeck.Count == 0;
+	}
+
 	public void PrintBoardDeck(){
-		if(_boards.BoardDeck != null){
+		if(_boards.BoardDeck != null && !IsEmptyBoard()){
 			foreach(IDominoCard card in _boards.BoardDeck){
-				Console.WriteLine(card.ToString());
+				Console.Write(card.ToString());
 			}
+		}
+		else{
+			Console.WriteLine("EMPTY BOARD");
 		}
 	}
 
 	public void PrintPlayerHand(IPlayer player){
 		if(_players[player].PlayerDeck != null){
 			foreach(IDominoCard card in _players[player].PlayerDeck){
-				Console.WriteLine(card.ToString());
+				Console.Write(card.ToString());
 			}
 		}
+	}
+
+	public void PrintPlayableCards(IPlayer player){
+		int i = 0;
+		foreach(IDominoCard card in PlayableCards(player)){
+			i++;
+			Console.WriteLine($"{i}. {card.ToString()}");
+		}
+
 	}
 
 	public void PrintMainDeck(){
 		if (_boards.MainDeck != null){
 			foreach(IDominoCard card in _boards.MainDeck){
-				Console.WriteLine(card.ToString());
+				Console.Write(card.ToString());
 			}
 		}
 		
@@ -113,7 +134,7 @@ public class Game
 		//cek playerdata.alreadyputcard
 		//misal gaisa naruh kartu, bisa minum nek blm naruh kartu
 		
-		if (_boards.MainDeck != null && !_players[player].AlreadyPutCardThatTurn) {
+		if (!IsEmptyMain() && !_players[player].AlreadyPutCardThatTurn) {
 			return true;
 		}
 		else {
@@ -149,8 +170,8 @@ public class Game
 		if (CanDrawCard(player)) {
 			IDominoCard card = GetCardFromMainDeck(RandomizeFromListRange(_boards.MainDeck));
 			_players[player].PlayerDeck.Add(card);
-			//ChangeCardStatus = SetCardStatus;
-			//ChangeCardStatus(card, CardStatus.PlayerHand);
+			ChangeCardStatus = SetCardStatus;
+			ChangeCardStatus(card, CardStatus.PlayerHand);
 			return card;	
 		}
 		return null;
@@ -190,7 +211,9 @@ public class Game
 			IPlayer greatestDouble = playerDoubles.Aggregate((x,y) => x.Value.CardValue() > y.Value.CardValue() ? x : y).Key;
 			return greatestDouble;
 		}
-		return null;
+		else {
+			return GetPlayer(1);
+		}
 	}
 	
 	public IDominoCard FirstCard(IPlayer player) {
@@ -206,12 +229,14 @@ public class Game
 		//ngecek playerdeck kalo ada kartu yang bisa dimainin
 		//kalo gaada yang bisa dimainin, cek bisa draw apa engga
 		//kalo masih gabisa, return false.
-		foreach(IDominoCard card in _players[player].PlayerDeck) {
-			if (CanChainCard(card)) {
-				return true;
+		if(!IsEmptyBoard()){
+			foreach(IDominoCard card in _players[player].PlayerDeck) {
+				if (CanChainCard(card)) {
+					return true;
+				}
 			}
 		}
-		return false; 
+		return false;
 	}
 	
 	public bool CanChainCard(IDominoCard card) {
@@ -226,21 +251,46 @@ public class Game
 			return false;
 		}
 	}
+
+	public List<IDominoCard> PlayableCards(IPlayer player){
+		List<IDominoCard> cards = new List<IDominoCard>();
+		if(!IsEmptyBoard()){
+			foreach(IDominoCard card in GetPlayerCard(player)){
+				if(CanChainCard(card)){
+					cards.Add(card);
+				}
+			}
+		}
+		else {
+			cards.Add(FirstCard(player));
+		}
+		return cards;
+
+	}
+
+	public IDominoCard ChoosePlayableCard(IPlayer player, int i){
+		return PlayableCards(player)[i-1];
+	}
 	
 	public bool PlayerPutCard(IPlayer player, IDominoCard card) {
 		// Naruh kartu ke board deck
-		IDominoCard first = _boards.BoardDeck.First();
-		IDominoCard last = _boards.BoardDeck.Last();
-		if (CanChainCard(card) && (card.End1 == first.End1 || card.End2 == first.End2)) {
-			if (card.End1 != first.End1) {
-				card.FlipCard();
+		if(!IsEmptyBoard()){
+			IDominoCard first = _boards.BoardDeck.First();
+			IDominoCard last = _boards.BoardDeck.Last();
+			if (CanChainCard(card) && (card.End1 == first.End1 || card.End2 == first.End2)) {
+				if (card.End1 != first.End1) {
+					card.FlipCard();
+				}
+				_boards.BoardDeck.AddFirst(card);	
 			}
-			_boards.BoardDeck.AddFirst(card);	
+			else if (CanChainCard(card) && (card.End1 == last.End1 || card.End2 == last.End2)) {
+				if (card.End1 != last.End1) {
+					card.FlipCard();
+				}
+				_boards.BoardDeck.AddLast(card);
+			}
 		}
-		else if (CanChainCard(card) && (card.End1 == last.End1 || card.End2 == last.End2)) {
-			if (card.End1 != last.End1) {
-				card.FlipCard();
-			}
+		else{
 			_boards.BoardDeck.AddLast(card);
 		}
 		_players[player].PlayerDeck.Remove(card);
@@ -267,9 +317,10 @@ public class Game
 		return _players[player].AccumulateCard();
 	}
 	
-	public void NextTurn() {
+	public IPlayer NextTurn() {
 		_players[GetPlayerPlayed()].AlreadyPutCardThatTurn = false;
-		indexTurnPlayer = (indexTurnPlayer + 1) % _players.Keys.Count(); 
+		indexTurnPlayer = (indexTurnPlayer % _players.Keys.Count) + 1;
+		return GetPlayerPlayed();
 	}
 	
 	public GameStatus GetGameStatus() {
@@ -324,13 +375,14 @@ public class Game
 
 		foreach(IPlayer player in _players.Keys) {
 			if(_players[player].PlayerDeck != null) {
-				_players[player].PlayerDeck = null;
+				_players[player].PlayerDeck.Clear();
 			}
 			else{
 				return false;
 			}
 		}
-
+		
+		_boards.MainDeck.Clear();
 		InitializeMainDeck();
 		return true;
 
