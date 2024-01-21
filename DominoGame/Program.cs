@@ -28,8 +28,6 @@ public class Program{
 
         if(game.IsReadyToPlay()){
             Console.WriteLine("===== GAME START =====");
-            game.InitializeMainDeck();
-            game.DistributeCards();
 
             IPlayer currentPlayer = game.GetPlayerPlayed();
 
@@ -38,7 +36,7 @@ public class Program{
                 game.DistributeCards();
             }
 
-            while(game.CalculatePoint(currentPlayer) < 100){
+            while(!game.PlayerReachMaxPoint()){
                 Console.WriteLine("==============================");
                 Console.WriteLine($"{currentPlayer.Name}'s Turn");
                 Console.WriteLine("==============================");
@@ -55,18 +53,38 @@ public class Program{
                 Console.WriteLine();
                 Console.WriteLine("==============================");
                 Console.WriteLine();
-                Console.WriteLine("Playable Cards:");
-                game.PrintPlayableCards(currentPlayer);
 
+                while(game.PlayableCards(currentPlayer).Count > 0) {
+                    Console.WriteLine("Playable Cards:");
+                    game.PrintPlayableCards(currentPlayer);
+                    Console.Write("Choose which cards to play: ");
+                    int choice;
+                    while(!int.TryParse(Console.ReadLine(), out choice) || (choice - 1) > game.PlayableCards(currentPlayer).Count){
+                        Console.WriteLine("Try Again");
+                    }
 
-                Console.Write("Choose which cards to play: ");
-                int choice;
-                while(!int.TryParse(Console.ReadLine(), out choice) || (choice - 1) > game.PlayableCards(currentPlayer).Count){
-                    Console.WriteLine("Try Again");
+                    Console.WriteLine("==============================");
+                    game.PlayerPutCard(currentPlayer, game.ChoosePlayableCard(currentPlayer, choice));
+                    Console.WriteLine();
+
+                    Console.WriteLine("BOARD:");
+                    game.PrintBoardDeck();
+                    Console.WriteLine();
+                    Console.WriteLine("==============================");
+                    Console.WriteLine();
                 }
 
-                Console.WriteLine("==============================");
-                game.PlayerPutCard(currentPlayer, game.ChoosePlayableCard(currentPlayer, choice));
+                Console.WriteLine("There are no playable cards...");
+                while(game.StillCanPlay(currentPlayer)){
+                    Console.WriteLine("Press 'Enter' to draw cards");
+                    if(Console.ReadKey().Key == ConsoleKey.Enter){
+                        Console.WriteLine("You drew " + game.DrawCard(currentPlayer).ToString());
+                    }
+                    else{
+                        Console.WriteLine("Try Again");
+                    }
+                }
+               
 
                 currentPlayer = game.NextTurn();
             }

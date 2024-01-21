@@ -30,6 +30,10 @@ public class PlayerData
 		}
 	}
 
+	public void IncreasePoint(int value){
+		this.Point += value;
+	}
+
 	public IDominoCard? FindGreatestDouble(){
 		if (PlayerDeck != null){
 			List<IDominoCard> doubles = new List<IDominoCard>();

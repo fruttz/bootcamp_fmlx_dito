@@ -5,7 +5,7 @@ public class Game
 {
 	private Dictionary<IPlayer, PlayerData> _players;
 	private IDominoBoard _boards;
-	private GameStatus _gameStatus;
+	private GameStatus _gameStatus = GameStatus.NotReady;
 	private List<bool> _chainStatus;
 	private int indexTurnPlayer;
 	private int maxPoint;
@@ -20,7 +20,10 @@ public class Game
 		foreach(IPlayer player in players) {
 			CreatePlayer(player);
 		}
+		InitializeMainDeck();
+        DistributeCards();
 		this.indexTurnPlayer = WhoHasGreatestDouble().Id;
+		this._gameStatus = GameStatus.Playing;
 	}
 	
 	public IEnumerable<IDominoCard>? GetPlayerCard(IPlayer player){
@@ -63,6 +66,10 @@ public class Game
 
 	public bool IsEmptyMain(){
 		return _boards.MainDeck.Count == 0;
+	}
+
+	public bool IsPlayerHandEmpty(IPlayer player){
+		return _players[player].PlayerDeck.Count == 0;
 	}
 
 	public void PrintBoardDeck(){
@@ -192,9 +199,9 @@ public class Game
 	}
 
 	public bool PlayerHasDouble() {
-		foreach (IPlayer player in _players.Keys){
-			foreach(IDominoCard card in _players[player].PlayerDeck){
-				if (card.IsDouble()){
+		foreach (IPlayer player in _players.Keys) {
+			foreach (IDominoCard card in _players[player].PlayerDeck) {
+				if (card.IsDouble()) {
 					return true;
 				}
 			}
@@ -208,7 +215,7 @@ public class Game
 			foreach (IPlayer player in _players.Keys){
 				playerDoubles.Add(player, _players[player].FindGreatestDouble());
 			}
-			IPlayer greatestDouble = playerDoubles.Aggregate((x,y) => x.Value.CardValue() > y.Value.CardValue() ? x : y).Key;
+			IPlayer greatestDouble = playerDoubles.OrderByDescending(x => x.Value.CardValue()).FirstOrDefault().Key;
 			return greatestDouble;
 		}
 		else {
@@ -235,8 +242,9 @@ public class Game
 					return true;
 				}
 			}
+			return CanDrawCard(player);
 		}
-		return false;
+		return true;
 	}
 	
 	public bool CanChainCard(IDominoCard card) {
@@ -329,12 +337,17 @@ public class Game
 	
 	public IPlayer? RoundWinner() {
 		foreach (IPlayer player in _players.Keys) {
-			if (_players[player].PlayerDeck == null) {
+			if (IsPlayerHandEmpty(player)) {
 				return player;
 			}
 		}
 		return null;
 		
+	}
+
+	public bool RoundOver(IPlayer player1, IPlayer player2) {
+		_players[player1].IncreasePoint(_players[player2].AccumulateCard());
+		return true;
 	}
 	
 	public bool PlayerReachMaxPoint() {
