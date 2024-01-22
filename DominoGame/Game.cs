@@ -20,8 +20,11 @@ public class Game
 		foreach(IPlayer player in players) {
 			CreatePlayer(player);
 		}
-		InitializeMainDeck();
-        DistributeCards();
+
+		do {
+			InitializeMainDeck();
+			DistributeCards();		
+		} while (WhoHasGreatestDouble() is null);
 		this.indexTurnPlayer = WhoHasGreatestDouble().Id;
 		this._gameStatus = GameStatus.Playing;
 	}
@@ -50,6 +53,7 @@ public class Game
 				_boards.MainDeck.Add(card);
 			}
 		}
+		Console.WriteLine("Initialized");
 	}
 	
 	public IEnumerable<IDominoCard> GetMainDeck() {
@@ -191,6 +195,7 @@ public class Game
 					DrawCard(player); 
 				}
 			}
+			Console.WriteLine("Card Distributed");
 			return true;
 		}
 		else {
@@ -228,7 +233,7 @@ public class Game
 	}
 	
 	public bool StillHaveCard(IPlayer player) {
-		return _players[player].PlayerDeck != null;
+		return _players[player].PlayerDeck.Count != 0;
 	}
 	
 	
@@ -252,7 +257,7 @@ public class Game
 		//intine cek kalo kartune bisa dichain
 		IDominoCard first = _boards.BoardDeck.First();
 		IDominoCard last = _boards.BoardDeck.Last();
-		if (card.End1 == first.End1 || card.End2 == first.End2 || card.End1 == last.End1 || card.End2 == last.End2) {
+		if (card.End1 == first.End1 || card.End2 == first.End1 || card.End1 == last.End2 || card.End2 == last.End2) {
 			return true;
 		}
 		else {
@@ -285,14 +290,14 @@ public class Game
 		if(!IsEmptyBoard()){
 			IDominoCard first = _boards.BoardDeck.First();
 			IDominoCard last = _boards.BoardDeck.Last();
-			if (CanChainCard(card) && (card.End1 == first.End1 || card.End2 == first.End2)) {
-				if (card.End1 != first.End1) {
+			if (CanChainCard(card) && (card.End1 == first.End1 || card.End2 == first.End1)) {
+				if (card.End2 != first.End1) {
 					card.FlipCard();
 				}
 				_boards.BoardDeck.AddFirst(card);	
 			}
-			else if (CanChainCard(card) && (card.End1 == last.End1 || card.End2 == last.End2)) {
-				if (card.End1 != last.End1) {
+			else if (CanChainCard(card) && (card.End1 == last.End2 || card.End2 == last.End2)) {
+				if (card.End1 != last.End2) {
 					card.FlipCard();
 				}
 				_boards.BoardDeck.AddLast(card);
@@ -381,29 +386,25 @@ public class Game
 		return false;
 	}
 	
-	public bool ResetPlayerCard() {
+	public void ResetPlayerCard() {
 		//ngosongin player deck, inisialisasi ulang maindeck
 		//dipanggil waktu distribute card gaada double
 		//dipanggil waktu menang round
-
 		foreach(IPlayer player in _players.Keys) {
-			if(_players[player].PlayerDeck != null) {
+			if(!IsPlayerHandEmpty(player)) {
 				_players[player].PlayerDeck.Clear();
-			}
-			else{
-				return false;
 			}
 		}
 		
 		_boards.MainDeck.Clear();
 		InitializeMainDeck();
-		return true;
-
+		DistributeCards();
+		//indexTurnPlayer = WhoHasGreatestDouble().Id;
 		
 	}
 	
-	public bool ResetBoard(IDominoBoard board) {
-		_boards = board;
+	public bool ResetBoard() {
+		_boards.BoardDeck.Clear();
 		return true;
 	}
 	

@@ -19,3 +19,24 @@ D:\git\bootcamp_fmlx_dito\DominoGame\obj\Debug\net7.0\refint\DominoGame.dll
 D:\git\bootcamp_fmlx_dito\DominoGame\obj\Debug\net7.0\DominoGame.pdb
 d:\git\bootcamp_fmlx_dito\DominoGame\obj\Debug\net7.0\DominoGame.genruntimeconfig.cache
 d:\git\bootcamp_fmlx_dito\DominoGame\obj\Debug\net7.0\ref\DominoGame.dll
+C:\Users\Batch 8\Desktop\Batch8_Dito\git_repo\bootcamp_fmlx_dito\DominoGame\bin\Debug\net7.0\DominoGame.exe
+c:\Users\Batch 8\Desktop\Batch8_Dito\git_repo\bootcamp_fmlx_dito\DominoGame\bin\Debug\net7.0\DominoGame.deps.json
+c:\Users\Batch 8\Desktop\Batch8_Dito\git_repo\bootcamp_fmlx_dito\DominoGame\bin\Debug\net7.0\DominoGame.runtimeconfig.json
+C:\Users\Batch 8\Desktop\Batch8_Dito\git_repo\bootcamp_fmlx_dito\DominoGame\bin\Debug\net7.0\DominoGame.dll
+C:\Users\Batch 8\Desktop\Batch8_Dito\git_repo\bootcamp_fmlx_dito\DominoGame\bin\Debug\net7.0\DominoGame.pdb
+C:\Users\Batch 8\Desktop\Batch8_Dito\git_repo\bootcamp_fmlx_dito\DominoGame\bin\Debug\net7.0\Spectre.Console.dll
+C:\Users\Batch 8\Desktop\Batch8_Dito\git_repo\bootcamp_fmlx_dito\DominoGame\bin\Debug\net7.0\Spectre.Console.Cli.dll
+C:\Users\Batch 8\Desktop\Batch8_Dito\git_repo\bootcamp_fmlx_dito\DominoGame\bin\Debug\net7.0\de\Spectre.Console.Cli.resources.dll
+C:\Users\Batch 8\Desktop\Batch8_Dito\git_repo\bootcamp_fmlx_dito\DominoGame\bin\Debug\net7.0\fr\Spectre.Console.Cli.resources.dll
+C:\Users\Batch 8\Desktop\Batch8_Dito\git_repo\bootcamp_fmlx_dito\DominoGame\bin\Debug\net7.0\sv\Spectre.Console.Cli.resources.dll
+C:\Users\Batch 8\Desktop\Batch8_Dito\git_repo\bootcamp_fmlx_dito\DominoGame\obj\Debug\net7.0\DominoGame.csproj.AssemblyReference.cache
+C:\Users\Batch 8\Desktop\Batch8_Dito\git_repo\bootcamp_fmlx_dito\DominoGame\obj\Debug\net7.0\DominoGame.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Batch 8\Desktop\Batch8_Dito\git_repo\bootcamp_fmlx_dito\DominoGame\obj\Debug\net7.0\DominoGame.AssemblyInfoInputs.cache
+C:\Users\Batch 8\Desktop\Batch8_Dito\git_repo\bootcamp_fmlx_dito\DominoGame\obj\Debug\net7.0\DominoGame.AssemblyInfo.cs
+C:\Users\Batch 8\Desktop\Batch8_Dito\git_repo\bootcamp_fmlx_dito\DominoGame\obj\Debug\net7.0\DominoGame.csproj.CoreCompileInputs.cache
+c:\Users\Batch 8\Desktop\Batch8_Dito\git_repo\bootcamp_fmlx_dito\DominoGame\obj\Debug\net7.0\DominoGame.csproj.CopyComplete
+C:\Users\Batch 8\Desktop\Batch8_Dito\git_repo\bootcamp_fmlx_dito\DominoGame\obj\Debug\net7.0\DominoGame.dll
+C:\Users\Batch 8\Desktop\Batch8_Dito\git_repo\bootcamp_fmlx_dito\DominoGame\obj\Debug\net7.0\refint\DominoGame.dll
+C:\Users\Batch 8\Desktop\Batch8_Dito\git_repo\bootcamp_fmlx_dito\DominoGame\obj\Debug\net7.0\DominoGame.pdb
+c:\Users\Batch 8\Desktop\Batch8_Dito\git_repo\bootcamp_fmlx_dito\DominoGame\obj\Debug\net7.0\DominoGame.genruntimeconfig.cache
+c:\Users\Batch 8\Desktop\Batch8_Dito\git_repo\bootcamp_fmlx_dito\DominoGame\obj\Debug\net7.0\ref\DominoGame.dll
