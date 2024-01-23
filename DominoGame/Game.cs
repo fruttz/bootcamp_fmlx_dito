@@ -23,7 +23,7 @@ public class Game
 
 		do {
 			InitializeMainDeck();
-			DistributeCards();		
+			DistributeCards();	
 		} while (WhoHasGreatestDouble() is null);
 		this.indexTurnPlayer = WhoHasGreatestDouble().Id;
 		this._gameStatus = GameStatus.Playing;
@@ -280,7 +280,7 @@ public class Game
 
 	public List<IDominoCard> PlayableCards(IPlayer player){
 		List<IDominoCard> cards = new List<IDominoCard>();
-		if(GetPlayerCard(player) != null) {
+		if(GetPlayerCard(player) != null && !IsPlayerHandEmpty(player)) {
 			if(!IsEmptyBoard()){
 				foreach(IDominoCard card in GetPlayerCard(player)){
 					if(CanChainCard(card)){
@@ -410,16 +410,11 @@ public class Game
 			}
 		}
 		
-		InitializeMainDeck();
-		DistributeCards();
-		
-		IPlayer greatestDoublePlayer = WhoHasGreatestDouble();
-
-		if (greatestDoublePlayer != null) {
-			indexTurnPlayer = greatestDoublePlayer.Id;
-		} else {
-			indexTurnPlayer = _players.Keys.FirstOrDefault()?.Id ?? 1;
-		}	
+		do {
+			InitializeMainDeck();
+			DistributeCards();		
+		} while (WhoHasGreatestDouble() is null);
+		indexTurnPlayer = WhoHasGreatestDouble().Id;	
 	}
 	
 	public bool ResetBoard() {

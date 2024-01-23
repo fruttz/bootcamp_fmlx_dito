@@ -64,6 +64,11 @@ public class Program{
 					Console.WriteLine("==============================");
 					game.PlayerPutCard(currentPlayer, game.ChoosePlayableCard(currentPlayer, choice));
 					Console.WriteLine();
+					
+					Console.WriteLine("==============================");
+					Console.WriteLine($"{currentPlayer.Name}'s Turn");
+					Console.WriteLine("==============================");
+					Console.WriteLine();
 
 					Console.WriteLine("BOARD:");
 					game.PrintBoardDeck();
@@ -94,9 +99,11 @@ public class Program{
 							Console.WriteLine("Try Again");
 						}
 					}
-					Console.WriteLine("==============================");
-					Console.WriteLine("DECK EMPTY");
-					Console.WriteLine("==============================");
+					if(game.IsEmptyMain()){
+						Console.WriteLine("==============================");
+						Console.WriteLine("DECK EMPTY");
+						Console.WriteLine("==============================");
+					}
 				}
 				
 				if((game.IsEmptyMain() && !game.StillCanPlay(currentPlayer)) || currentPlayer == game.RoundWinner()) {
