@@ -47,13 +47,19 @@ public class Game
 
 	public void InitializeMainDeck(){
 		//List<IDominoCard> deck = new List<IDominoCard>();
-		for (int i = 0; i <= 6; i++){
-			for(int j = i; j <= 6; j++){
-				IDominoCard card = new DominoCard(i, j, CardStatus.MainDeck.ToString());
-				_boards.MainDeck.Add(card);
-			}
+		if(IsEmptyMain()) {
+			for (int i = 0; i <= 6; i++){
+				for(int j = i; j <= 6; j++){
+					IDominoCard card = new DominoCard(i, j, CardStatus.MainDeck.ToString());
+					_boards.MainDeck.Add(card);
+				}
+			}	
 		}
-		Console.WriteLine("Initialized");
+		else {
+			_boards.MainDeck.Clear();
+			InitializeMainDeck();
+		}
+		
 	}
 	
 	public IEnumerable<IDominoCard> GetMainDeck() {
@@ -88,7 +94,7 @@ public class Game
 	}
 
 	public void PrintPlayerHand(IPlayer player){
-		if(_players[player].PlayerDeck != null){
+		if(!IsPlayerHandEmpty(player)){
 			foreach(IDominoCard card in _players[player].PlayerDeck){
 				Console.Write(card.ToString());
 			}
@@ -97,10 +103,12 @@ public class Game
 
 	public void PrintPlayableCards(IPlayer player){
 		int i = 0;
-		foreach(IDominoCard card in PlayableCards(player)){
-			i++;
-			Console.WriteLine($"{i}. {card.ToString()}");
-		}
+		if(PlayableCards(player) != null){
+			foreach(IDominoCard card in PlayableCards(player)){
+				i++;
+				Console.WriteLine($"{i}. {card.ToString()}");
+			}
+		} 
 
 	}
 
@@ -145,7 +153,7 @@ public class Game
 		//cek playerdata.alreadyputcard
 		//misal gaisa naruh kartu, bisa minum nek blm naruh kartu
 		
-		if (!IsEmptyMain() && !_players[player].AlreadyPutCardThatTurn) {
+		if (!IsEmptyMain()) {
 			return true;
 		}
 		else {
@@ -195,7 +203,6 @@ public class Game
 					DrawCard(player); 
 				}
 			}
-			Console.WriteLine("Card Distributed");
 			return true;
 		}
 		else {
@@ -215,17 +222,23 @@ public class Game
 	}
 
 	public IPlayer? WhoHasGreatestDouble() {
-		if (PlayerHasDouble()){
+		if (_players != null && _players.Any() && PlayerHasDouble()) {
 			Dictionary<IPlayer, IDominoCard> playerDoubles = new Dictionary<IPlayer, IDominoCard>();
-			foreach (IPlayer player in _players.Keys){
-				playerDoubles.Add(player, _players[player].FindGreatestDouble());
+			foreach (IPlayer player in _players.Keys) {
+				IDominoCard greatestDouble = _players[player].FindGreatestDouble();
+				if (greatestDouble != null) {
+					playerDoubles.Add(player, greatestDouble);
+				}
 			}
-			IPlayer greatestDouble = playerDoubles.OrderByDescending(x => x.Value.CardValue()).FirstOrDefault().Key;
-			return greatestDouble;
+
+			if (playerDoubles.Count > 0) {
+				IPlayer greatestDoublePlayer = playerDoubles.Aggregate((x, y) => x.Value.CardValue() > y.Value.CardValue() ? x : y).Key;
+
+				return greatestDoublePlayer;
+			}
 		}
-		else {
-			return GetPlayer(1);
-		}
+
+		return GetPlayer(1);
 	}
 	
 	public IDominoCard FirstCard(IPlayer player) {
@@ -267,15 +280,16 @@ public class Game
 
 	public List<IDominoCard> PlayableCards(IPlayer player){
 		List<IDominoCard> cards = new List<IDominoCard>();
-		if(!IsEmptyBoard()){
-			foreach(IDominoCard card in GetPlayerCard(player)){
-				if(CanChainCard(card)){
-					cards.Add(card);
+		if(GetPlayerCard(player) != null) {
+			if(!IsEmptyBoard()){
+				foreach(IDominoCard card in GetPlayerCard(player)){
+					if(CanChainCard(card)){
+						cards.Add(card);
+					}
 				}
+			} else {
+				cards.Add(FirstCard(player));
 			}
-		}
-		else {
-			cards.Add(FirstCard(player));
 		}
 		return cards;
 
@@ -396,11 +410,16 @@ public class Game
 			}
 		}
 		
-		_boards.MainDeck.Clear();
 		InitializeMainDeck();
 		DistributeCards();
-		//indexTurnPlayer = WhoHasGreatestDouble().Id;
 		
+		IPlayer greatestDoublePlayer = WhoHasGreatestDouble();
+
+		if (greatestDoublePlayer != null) {
+			indexTurnPlayer = greatestDoublePlayer.Id;
+		} else {
+			indexTurnPlayer = _players.Keys.FirstOrDefault()?.Id ?? 1;
+		}	
 	}
 	
 	public bool ResetBoard() {

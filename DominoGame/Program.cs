@@ -79,28 +79,24 @@ public class Program{
 				}
 				if(!game.GetAlreadyPutCard(currentPlayer)) {
 					Console.WriteLine("There are no playable cards...");
-					if(!game.IsEmptyMain()){
-						while(game.PlayableCards(currentPlayer).Count == 0){
-							Console.WriteLine("Press 'Enter' to draw cards");
-							if(Console.ReadKey().Key == ConsoleKey.Enter){
-								Console.WriteLine("You drew " + game.DrawCard(currentPlayer).ToString());
-								Console.WriteLine("Playable cards: " + game.PlayableCards(currentPlayer).Count());
-								Console.WriteLine("YOUR HAND: ");
-								game.PrintPlayerHand(currentPlayer);
-								Console.WriteLine();
-								Console.WriteLine("==============================");
-								Console.WriteLine();
-							}
-							else{
-								Console.WriteLine("Try Again");
-							}
+					while(game.PlayableCards(currentPlayer).Count == 0 && !game.IsEmptyMain()){
+						Console.WriteLine("Press 'Enter' to draw cards");
+						if(Console.ReadKey().Key == ConsoleKey.Enter){
+							Console.WriteLine("You drew " + game.DrawCard(currentPlayer).ToString());
+							Console.WriteLine("Playable cards: " + game.PlayableCards(currentPlayer).Count());
+							Console.WriteLine("YOUR HAND: ");
+							game.PrintPlayerHand(currentPlayer);
+							Console.WriteLine();
+							Console.WriteLine("==============================");
+							Console.WriteLine();
+						}
+						else{
+							Console.WriteLine("Try Again");
 						}
 					}
-					else {
-						Console.WriteLine("==============================");
-						Console.WriteLine("DECK EMPTY");
-						Console.WriteLine("==============================");
-					}
+					Console.WriteLine("==============================");
+					Console.WriteLine("DECK EMPTY");
+					Console.WriteLine("==============================");
 				}
 				
 				if((game.IsEmptyMain() && !game.StillCanPlay(currentPlayer)) || currentPlayer == game.RoundWinner()) {
