@@ -12,7 +12,7 @@ public class Game
 	private int numberDistributeCards;
 	public Action<IDominoCard, CardStatus> ChangeCardStatus;
 
-	public Game(IDominoBoard board, List<IPlayer> players,  int maxPoint, int numberOfDistributeCard){
+	public Game(IDominoBoard board, List<IPlayer> players, int maxPoint, int numberOfDistributeCard){
 		this._boards = board;
 		this.maxPoint = maxPoint;
 		this.numberDistributeCards = numberOfDistributeCard;
@@ -20,13 +20,8 @@ public class Game
 		foreach(IPlayer player in players) {
 			CreatePlayer(player);
 		}
-
-		do {
-			InitializeMainDeck();
-			DistributeCards();	
-		} while (WhoHasGreatestDouble() is null);
-		this.indexTurnPlayer = WhoHasGreatestDouble().Id;
 		this._gameStatus = GameStatus.Playing;
+
 	}
 	
 	public IEnumerable<IDominoCard>? GetPlayerCard(IPlayer player){
@@ -44,30 +39,21 @@ public class Game
 	public IEnumerable<IPlayer> GetPlayers() {
 		return _players.Keys;
 	}
-
-	public void InitializeMainDeck(){
-		//List<IDominoCard> deck = new List<IDominoCard>();
-		if(IsEmptyMain()) {
-			for (int i = 0; i <= 6; i++){
-				for(int j = i; j <= 6; j++){
-					IDominoCard card = new DominoCard(i, j, CardStatus.MainDeck.ToString());
-					_boards.MainDeck.Add(card);
-				}
-			}	
-		}
-		else {
-			_boards.MainDeck.Clear();
-			InitializeMainDeck();
-		}
-		
-	}
 	
 	public IEnumerable<IDominoCard> GetMainDeck() {
 		return _boards.MainDeck;
 	}
+
+	public void SetMainDeck(List<IDominoCard> deck){
+		_boards.MainDeck = deck;
+	}
 	
 	public IEnumerable<IDominoCard> GetBoardDeck() {
 		return _boards.BoardDeck;
+	}
+
+	public void SetIndexTurn(int index) {
+		indexTurnPlayer = index;
 	}
 
 	public bool IsEmptyBoard(){
@@ -80,45 +66,6 @@ public class Game
 
 	public bool IsPlayerHandEmpty(IPlayer player){
 		return _players[player].PlayerDeck.Count == 0;
-	}
-
-	public void PrintBoardDeck(){
-		if(_boards.BoardDeck != null && !IsEmptyBoard()){
-			foreach(IDominoCard card in _boards.BoardDeck){
-				Console.Write(card.ToString());
-			}
-		}
-		else{
-			Console.WriteLine("EMPTY BOARD");
-		}
-	}
-
-	public void PrintPlayerHand(IPlayer player){
-		if(!IsPlayerHandEmpty(player)){
-			foreach(IDominoCard card in _players[player].PlayerDeck){
-				Console.Write(card.ToString());
-			}
-		}
-	}
-
-	public void PrintPlayableCards(IPlayer player){
-		int i = 0;
-		if(PlayableCards(player) != null){
-			foreach(IDominoCard card in PlayableCards(player)){
-				i++;
-				Console.WriteLine($"{i}. {card.ToString()}");
-			}
-		} 
-
-	}
-
-	public void PrintMainDeck(){
-		if (_boards.MainDeck != null){
-			foreach(IDominoCard card in _boards.MainDeck){
-				Console.Write(card.ToString());
-			}
-		}
-		
 	}
 
 	public IPlayer? GetPlayer(int id){
@@ -412,10 +359,8 @@ public class Game
 			}
 		}
 		
-		do {
-			InitializeMainDeck();
-			DistributeCards();		
-		} while (WhoHasGreatestDouble() is null);
+		
+		DistributeCards();		
 		indexTurnPlayer = WhoHasGreatestDouble().Id;	
 	}
 	

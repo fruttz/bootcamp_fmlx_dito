@@ -24,6 +24,10 @@ public class Program{
 		while(!int.TryParse(Console.ReadLine(), out maxPoint) && maxPoint <= 0){
 			Console.WriteLine("Try Again");
 		}
+		
+		
+
+
 
 		Game game = new Game(board, players, maxPoint, 7);
 
@@ -31,6 +35,22 @@ public class Program{
 
 		if(game.IsReadyToPlay()){
 			Console.WriteLine("===== GAME START =====");
+
+			List<IDominoCard> mainDeck = new List<IDominoCard>();
+			do{
+				mainDeck.Clear();
+				if(mainDeck.Count == 0) {
+					for (int i = 0; i <= 6; i++){
+						for(int j = i; j <= 6; j++){
+							IDominoCard card = new DominoCard(i, j, CardStatus.MainDeck.ToString());
+							mainDeck.Add(card);
+						}
+					}	
+				}
+				game.SetMainDeck(mainDeck);
+				game.DistributeCards();
+			} while(game.WhoHasGreatestDouble() is null);
+			game.SetIndexTurn(game.WhoHasGreatestDouble().Id);
 
 			IPlayer currentPlayer = game.GetPlayerPlayed();
 
@@ -41,20 +61,35 @@ public class Program{
 				Console.WriteLine();
 
 				Console.WriteLine("BOARD:");
-				game.PrintBoardDeck();
+				if(game.GetBoardDeck() != null && !game.IsEmptyBoard()){
+					foreach(IDominoCard card in game.GetBoardDeck()){
+						Console.Write(card.ToString());
+					}
+				}
+				else{
+					Console.WriteLine("EMPTY BOARD");
+				}
 				Console.WriteLine();
 				Console.WriteLine("==============================");
 				Console.WriteLine();
 
 				Console.WriteLine("YOUR HAND: ");
-				game.PrintPlayerHand(currentPlayer);
+				if(!game.IsPlayerHandEmpty(currentPlayer)){
+					foreach(IDominoCard card in game.GetPlayerCard(currentPlayer)){
+						Console.Write(card.ToString());
+					}
+				}
 				Console.WriteLine();
 				Console.WriteLine("==============================");
 				Console.WriteLine();
 
 				while(game.PlayableCards(currentPlayer).ToList().Count > 0) {
 					Console.WriteLine("Playable Cards:");
-					game.PrintPlayableCards(currentPlayer);
+					int i = 0;
+					foreach(IDominoCard card in game.PlayableCards(currentPlayer)){
+						i++;
+						Console.WriteLine($"{i}. {card.ToString()}");
+					}
 					Console.Write("Choose which cards to play: ");
 					int choice;
 					while(!int.TryParse(Console.ReadLine(), out choice) || choice > game.PlayableCards(currentPlayer).ToList().Count){
@@ -71,13 +106,22 @@ public class Program{
 					Console.WriteLine();
 
 					Console.WriteLine("BOARD:");
-					game.PrintBoardDeck();
+					if(game.GetBoardDeck() != null && !game.IsEmptyBoard()){
+						foreach(IDominoCard card in game.GetBoardDeck()){
+							Console.Write(card.ToString());
+						}
+					}
+					else{
+						Console.WriteLine("EMPTY BOARD");
+					}
 					Console.WriteLine();
 					Console.WriteLine("==============================");
 					Console.WriteLine();
 					
 					Console.WriteLine("YOUR HAND: ");
-					game.PrintPlayerHand(currentPlayer);
+					foreach(IDominoCard card in game.GetPlayerCard(currentPlayer)){
+						Console.Write(card.ToString());
+					}
 					Console.WriteLine();
 					Console.WriteLine("==============================");
 					Console.WriteLine();
@@ -89,7 +133,9 @@ public class Program{
 						if(Console.ReadKey().Key == ConsoleKey.Enter){
 							Console.WriteLine("You drew " + game.DrawCard(currentPlayer).ToString());
 							Console.WriteLine("YOUR HAND: ");
-							game.PrintPlayerHand(currentPlayer);
+							foreach(IDominoCard card in game.GetPlayerCard(currentPlayer)){
+								Console.Write(card.ToString());
+							}
 							Console.WriteLine();
 							Console.WriteLine("==============================");
 							Console.WriteLine();
@@ -119,7 +165,18 @@ public class Program{
 					while(Console.ReadKey().Key != ConsoleKey.Enter) {
 						Console.WriteLine("Try Again");
 					}
-					game.ResetPlayerCard();
+
+					do{
+						mainDeck.Clear();
+						for (int i = 0; i <= 6; i++){
+							for(int j = i; j <= 6; j++){
+								IDominoCard card = new DominoCard(i, j, CardStatus.MainDeck.ToString());
+								mainDeck.Add(card);
+							}
+						}
+						game.SetMainDeck(mainDeck);	
+						game.ResetPlayerCard();
+					} while (game.WhoHasGreatestDouble() is null);
 					game.ResetBoard();
 				}	
 				else {
