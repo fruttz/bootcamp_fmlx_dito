@@ -52,12 +52,12 @@ public class Program{
 				Console.WriteLine("==============================");
 				Console.WriteLine();
 
-				while(game.PlayableCards(currentPlayer).Count > 0) {
+				while(game.PlayableCards(currentPlayer).ToList().Count > 0) {
 					Console.WriteLine("Playable Cards:");
 					game.PrintPlayableCards(currentPlayer);
 					Console.Write("Choose which cards to play: ");
 					int choice;
-					while(!int.TryParse(Console.ReadLine(), out choice) || choice > game.PlayableCards(currentPlayer).Count){
+					while(!int.TryParse(Console.ReadLine(), out choice) || choice > game.PlayableCards(currentPlayer).ToList().Count){
 						Console.WriteLine("Try Again");
 					}
 
@@ -84,11 +84,10 @@ public class Program{
 				}
 				if(!game.GetAlreadyPutCard(currentPlayer)) {
 					Console.WriteLine("There are no playable cards...");
-					while(game.PlayableCards(currentPlayer).Count == 0 && !game.IsEmptyMain()){
+					while(game.PlayableCards(currentPlayer).ToList().Count == 0 && !game.IsEmptyMain()){
 						Console.WriteLine("Press 'Enter' to draw cards");
 						if(Console.ReadKey().Key == ConsoleKey.Enter){
 							Console.WriteLine("You drew " + game.DrawCard(currentPlayer).ToString());
-							Console.WriteLine("Playable cards: " + game.PlayableCards(currentPlayer).Count());
 							Console.WriteLine("YOUR HAND: ");
 							game.PrintPlayerHand(currentPlayer);
 							Console.WriteLine();
@@ -116,11 +115,16 @@ public class Program{
 					foreach(IPlayer player in players) {
 						Console.WriteLine($"{player.Name}'s Points: {game.GetPlayerPoint(player)}");
 					}
+					Console.WriteLine("Press 'Enter' to Start New Round");
+					while(Console.ReadKey().Key != ConsoleKey.Enter) {
+						Console.WriteLine("Try Again");
+					}
 					game.ResetPlayerCard();
 					game.ResetBoard();
 				}	
 				else {
-					currentPlayer = game.NextTurn();	
+					currentPlayer = game.NextTurn();
+					Console.Clear();	
 				}
 			}
 			Console.WriteLine("==============================");

@@ -238,7 +238,7 @@ public class Game
 			}
 		}
 
-		return GetPlayer(1);
+		return null;
 	}
 	
 	public IDominoCard FirstCard(IPlayer player) {
@@ -278,25 +278,27 @@ public class Game
 		}
 	}
 
-	public List<IDominoCard> PlayableCards(IPlayer player){
-		List<IDominoCard> cards = new List<IDominoCard>();
+	public IEnumerable<IDominoCard> PlayableCards(IPlayer player){
 		if(GetPlayerCard(player) != null && !IsPlayerHandEmpty(player)) {
+			List<IDominoCard> cards = new List<IDominoCard>();
 			if(!IsEmptyBoard()){
 				foreach(IDominoCard card in GetPlayerCard(player)){
 					if(CanChainCard(card)){
 						cards.Add(card);
 					}
 				}
+				return cards;
 			} else {
 				cards.Add(FirstCard(player));
+				return cards;
 			}
 		}
-		return cards;
+		return Enumerable.Empty<IDominoCard>();
 
 	}
 
 	public IDominoCard ChoosePlayableCard(IPlayer player, int i){
-		return PlayableCards(player)[i-1];
+		return PlayableCards(player).ElementAt(i-1);
 	}
 	
 	public bool PlayerPutCard(IPlayer player, IDominoCard card) {
