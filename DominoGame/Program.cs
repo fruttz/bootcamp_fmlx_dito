@@ -84,6 +84,7 @@ public class Program{
 				Console.WriteLine();
 
 				while(game.PlayableCards(currentPlayer).ToList().Count > 0) {
+					List<IDominoCard> boardDeck = game.GetBoardDeck().ToList();
 					Console.WriteLine("Playable Cards:");
 					int i = 0;
 					foreach(IDominoCard card in game.PlayableCards(currentPlayer)){
@@ -95,10 +96,28 @@ public class Program{
 					while(!int.TryParse(Console.ReadLine(), out choice) || choice > game.PlayableCards(currentPlayer).ToList().Count){
 						Console.WriteLine("Try Again");
 					}
+					var playedCard = game.ChoosePlayableCard(currentPlayer, choice);
 
 					Console.WriteLine("==============================");
-					game.PlayerPutCard(currentPlayer, game.ChoosePlayableCard(currentPlayer, choice));
-					Console.WriteLine();
+					if(game.CanChainCardBothSides(playedCard)){
+						Console.WriteLine("Pick a side: ");
+						Console.WriteLine("1. Left");
+						Console.WriteLine("2. Right");
+						int sideChoice;
+						while(!int.TryParse(Console.ReadLine(), out sideChoice) || sideChoice > 2){
+							Console.WriteLine("Try Again");
+						}
+						if (sideChoice == 1) {
+							game.PlayerPutCardLeft(currentPlayer, playedCard);
+							Console.WriteLine();
+						} else {
+							game.PlayerPutCardRight(currentPlayer, playedCard);
+							Console.WriteLine();
+						}	
+					} else {
+						game.PlayerPutCard(currentPlayer, playedCard);
+						Console.WriteLine();
+					}
 					
 					Console.WriteLine("==============================");
 					Console.WriteLine($"{currentPlayer.Name}'s Turn");

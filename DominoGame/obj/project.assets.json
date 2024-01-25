@@ -140,19 +140,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\ACER\\.nuget\\packages\\": {}
+    "C:\\Users\\Batch 8\\.nuget\\packages\\": {},
+    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "d:\\git\\bootcamp_fmlx_dito\\DominoGame\\DominoGame.csproj",
+      "projectUniqueName": "c:\\Users\\Batch 8\\Desktop\\Batch8_Dito\\git_repo\\bootcamp_fmlx_dito\\DominoGame\\DominoGame.csproj",
       "projectName": "DominoGame",
-      "projectPath": "d:\\git\\bootcamp_fmlx_dito\\DominoGame\\DominoGame.csproj",
-      "packagesPath": "C:\\Users\\ACER\\.nuget\\packages\\",
-      "outputPath": "d:\\git\\bootcamp_fmlx_dito\\DominoGame\\obj\\",
+      "projectPath": "c:\\Users\\Batch 8\\Desktop\\Batch8_Dito\\git_repo\\bootcamp_fmlx_dito\\DominoGame\\DominoGame.csproj",
+      "packagesPath": "C:\\Users\\Batch 8\\.nuget\\packages\\",
+      "outputPath": "c:\\Users\\Batch 8\\Desktop\\Batch8_Dito\\git_repo\\bootcamp_fmlx_dito\\DominoGame\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+      ],
       "configFilePaths": [
-        "C:\\Users\\ACER\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Batch 8\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -198,12 +202,30 @@
         ],
         "assetTargetFallback": true,
         "warn": true,
+        "downloadDependencies": [
+          {
+            "name": "Microsoft.AspNetCore.App.Ref",
+            "version": "[7.0.13, 7.0.13]"
+          },
+          {
+            "name": "Microsoft.NETCore.App.Host.win-x64",
+            "version": "[7.0.13, 7.0.13]"
+          },
+          {
+            "name": "Microsoft.NETCore.App.Ref",
+            "version": "[7.0.13, 7.0.13]"
+          },
+          {
+            "name": "Microsoft.WindowsDesktop.App.Ref",
+            "version": "[7.0.13, 7.0.13]"
+          }
+        ],
         "frameworkReferences": {
           "Microsoft.NETCore.App": {
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.101\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.403\\RuntimeIdentifierGraph.json"
       }
     }
   }
